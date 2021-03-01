@@ -1,19 +1,19 @@
 pipeline {
     agent any 
     stages {
-        stage('Build') { 
+        stage('Git SCM') { 
             steps {
-               echo "this is Build"
+               git credentialsId: 'krishnavagu', url: 'https://github.com/krishnavagu/Paypal.git'
             }
         }
-        stage('Test') { 
+        stage('Maven Build ') { 
             steps {
-                echo "this is Test"
+                sh label: '', script: 'mvn clean package'
             }
         }
-        stage('Deploy') { 
+        stage('Tomcat Deploy') { 
             steps {
-                echo "this is Deployment"
+                deploy adapters: [tomcat9(credentialsId: 'tomcat-server', path: '', url: 'http://100.27.4.213:8080/manager/html')], contextPath: null, war: '**/*.war'
             }
         }
     }
