@@ -1,1 +1,1 @@
-<h1> Scripted Pipeline </h1>
+<h1> Declarative Pipeline </h1>
